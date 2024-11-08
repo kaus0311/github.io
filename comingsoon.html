@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling */
+        body {
+            font-family: 'Orbitron', sans-serif;
+            background: radial-gradient(circle, #1e1e1e, #111);
+            color: #00ffcc;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            width: 100%;
+            padding: 20px;
+            display: flex;
+            justify-content: flex-start;
+            background: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .navbar a {
+            color: #00ffcc;
+            text-decoration: none;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #ff00cc;
+        }
+
+        /* Main Content */
+        .container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .container h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            color: #ff00cc;
+            text-shadow: 0 0 10px #ff00cc, 0 0 20px #ff00cc, 0 0 30px #ff00cc;
+            animation: glow 1.5s infinite alternate;
+        }
+
+        .timer {
+            font-size: 2.5rem;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            color: #00ffcc;
+            text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 30px #00ffcc;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 10px #ff00cc, 0 0 20px #ff00cc, 0 0 30px #ff00cc, 0 0 40px #ff00cc;
+            }
+            100% {
+                text-shadow: 0 0 20px #ff00cc, 0 0 30px #ff00cc, 0 0 40px #ff00cc, 0 0 50px #ff00cc;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Footer */
+        .footer {
+            padding: 10px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.8);
+            color: #888;
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        .footer p {
+            font-size: 0.8rem;
+        }
+
+        /* Particle Effect */
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            animation: move 10s linear infinite;
+        }
+
+        @keyframes move {
+            0% {
+                transform: translateY(0) translateX(0);
+            }
+            100% {
+                transform: translateY(-1000px) translateX(500px);
+            }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .container h1 {
+                font-size: 2.5rem;
+            }
+
+            .timer {
+                font-size: 2rem;
+                padding: 15px 30px;
+            }
+
+            .navbar a {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container h1 {
+                font-size: 2rem;
+            }
+
+            .timer {
+                font-size: 1.5rem;
+                padding: 10px 20px;
+            }
+
+            .navbar a {
+                font-size: 0.8rem;
+            }
+
+            .footer p {
+                font-size: 0.7rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <a href="index.html">&larr; Home</a>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Game Launch Countdown</h1>
+        <div id="timer" class="timer">Loading...</div>
+        <!-- Particle Effect -->
+        <div class="particle" style="top: 80%; left: 20%; animation-duration: 12s;"></div>
+        <div class="particle" style="top: 70%; left: 40%; animation-duration: 14s;"></div>
+        <div class="particle" style="top: 60%; left: 60%; animation-duration: 16s;"></div>
+        <div class="particle" style="top: 50%; left: 80%; animation-duration: 18s;"></div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2023 My Portfolio. All rights reserved.</p>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Set the countdown target date (30 days from now)
+        const countdownDate = new Date();
+        countdownDate.setDate(countdownDate.getDate() + 30);
+
+        // Update the countdown every second
+        const interval = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+
+            // Time calculations
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Display the result
+            document.getElementById("timer").innerHTML = `
+                ${days}d ${hours}h ${minutes}m ${seconds}s
+            `;
+
+            // If the countdown is over
+            if (distance < 0) {
+                clearInterval(interval);
+                document.getElementById("timer").innerHTML = "New Games Available Now!";
+            }
+        }, 1000);
+    </script>
+
+</body>
+</html>
